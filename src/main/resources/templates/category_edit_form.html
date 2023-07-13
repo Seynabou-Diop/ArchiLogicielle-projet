@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Modifier une catégorie</title>
+    <style>
+	  body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  color: #333333;
+  margin-top: 40px;
+}
+
+form {
+  margin-top: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+button[type="submit"] {
+  padding: 10px 16px;
+  background-color: #0066cc;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+  background-color: #0052b3;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+  </style>
+</head>
+<body>
+<h1>Modifier une catégorie</h1>
+<form th:action="@{/category/update/{id}(id=${category.id})}" method="post">
+  <input type="hidden" name="_method" value="post">
+
+  <label for="libelle">Libellé :</label>
+  <input type="text" id="libelle" name="libelle" th:value="${category.libelle}" required><br><br>
+
+  <input type="submit" value="Modifier">
+</form>
+
+
+</body>
+</html>

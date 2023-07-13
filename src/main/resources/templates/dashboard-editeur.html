@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Admin</title>
+    
+        <style>
+            body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333333;
+            margin-top: 0;
+        }
+
+        h2 {
+            color: #333333;
+            margin-top: 40px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0066cc;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #cccccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tbody tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .actions a {
+            margin-right: 10px;
+        }
+
+        .logout-link {
+	
+	  position: absolute;
+	  top: 0;
+	  right: 0;
+	}
+        
+       </style>
+</head>
+<body>
+<h1>Dashboard Admin</h1><br>
+
+<a href="/logout">Déconnexion</a><br>
+<a href="/category/create">Créer une catégorie</a><br>
+<a href="/article/create">Créer un article</a><br>
+
+
+<h2>Gestion des articles</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Titre</th>
+        <th>Contenu</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop through the articles and display them -->
+    <tr th:each="article : ${articles}">
+        <td th:text="${article.id}"></td>
+        <td th:text="${article.titre}"></td>
+        <td th:text="${article.contenu}"></td>
+        <td>
+            <a th:href="@{/article/edit/{id}(id=${article.id})}">Modifier</a>
+            <a th:href="@{/article/delete/{id}(id=${article.id})}">Supprimer</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<h2>Gestion des catégories</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Libelle</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop through the categories and display them -->
+    <tr th:each="category : ${categories}">
+        <td th:text="${category.id}"></td>
+        <td th:text="${category.libelle}"></td>
+        <td>
+            <a th:href="@{/category/edit/{id}(id=${category.id})}">Modifier</a>
+            <a th:href="@{/category/delete/{id}(id=${category.id})}">Supprimer</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<a href="/logout">Déconnexion</a>
+</body>
+</html>

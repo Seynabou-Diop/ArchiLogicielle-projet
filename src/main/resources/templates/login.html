@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Authentification</title>
+    
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+            font-size: 20px;
+        }
+
+        h1 {
+            color: #333333;
+            margin-top: 0;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        #errorMessage {
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        form {
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 4px;
+        }
+
+        input {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0066cc;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0052b3;
+        }
+    </style>
+</head>
+<body>
+<h1>Authentification</h1>
+<div id="errorMessage" style="color: red;"></div> <!-- Div pour afficher le message d'erreur -->
+<form id="loginForm">
+    <input type="email" id="email" name="email" placeholder="Adresse e-mail" required>
+    <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+    <button type="submit">Connexion</button>
+</form>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Empêche le formulaire de se soumettre normalement
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        // Créez un objet JavaScript avec les données du formulaire
+        const formData = {
+            email: email,
+            password: password
+        };
+
+        const jsonData = JSON.stringify(formData);
+
+        fetch('/api/auth/authenticate', { // Utilisez l'endpoint d'authentification
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: jsonData
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Gérez la réponse de l'API en fonction du rôle de l'utilisateur
+                const userRole = data.roles[0];
+                console.log(userRole);
+
+                if (userRole === 'ADMIN') {
+                    window.location.href = "/dashboard-admin";
+                } else if (userRole === 'EDITEUR') {
+                    window.location.href = "/dashboard-editeur";
+                } else {
+                    document.getElementById('errorMessage').textContent = "Les identifiants sont incorrects.";
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                alert("Une erreur s'est produite lors de l'authentification.");
+            });
+    });
+</script>
+
+</body>
+</html>

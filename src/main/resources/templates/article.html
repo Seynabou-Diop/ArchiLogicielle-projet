@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Article Detail</title>
+</head>
+<body>
+<h1 th:text="${article.titre}"></h1>
+<p th:text="${article.contenu}"></p>
+<p>Date de création: <span th:text="${article.dateCreation}"></span></p>
+<p>Date de modification: <span th:text="${article.dateModification}"></span></p>
+<a href="/" th:text="'Retour à la page d\'accueil'"></a>
+</body>
+</html>

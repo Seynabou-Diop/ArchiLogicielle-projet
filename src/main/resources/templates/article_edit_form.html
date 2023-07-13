@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Modifier l'article</title>
+</head>
+<body>
+<h1>Modifier l'article</h1>
+
+<form th:action="@{/article/update/{id}(id=${article.id})}" th:object="${article}" method="post">
+  <div>
+    <label for="titre">Titre :</label>
+    <input type="text" id="titre" th:field="*{titre}" required/>
+  </div>
+  <div>
+    <label for="contenu">Contenu :</label>
+    <textarea id="contenu" th:field="*{contenu}" required></textarea>
+  </div>
+    <div>
+    <label for="categorie">Catégorie :</label>
+    <select id="categorie" name="categorie" required>
+      <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.libelle}"></option>
+    </select>
+  </div>
+
+
+
+  </div>
+  <div>
+    <button type="submit">Modifier</button>
+  </div>
+</form>
+
+</body>
+</html>

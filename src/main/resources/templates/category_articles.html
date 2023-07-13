@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Articles by Category</title>
+</head>
+<body>
+    <h1>Category: <span th:text="${category.libelle}"></span></h1>
+    <ul>
+        <li th:each="article : ${articles}">
+            <h3><a th:href="@{/article/{id}(id=${article.id})}" th:text="${article.titre}"></a></h3>
+            <p th:text="${article.contenu}"></p>
+            <hr>
+        </li>
+    </ul>
+    <a href="/" th:text="'Retour à la page d\'accueil'"></a>
+</body>
+</html>
